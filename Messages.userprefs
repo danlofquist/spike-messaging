@@ -1,0 +1,15 @@
+﻿<Properties>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="app/MainApp/Program.cs">
+    <Files>
+      <File FileName="app/MainApp/Program.cs" Line="17" Column="31" />
+      <File FileName="app/MainApp/TemperatureSensor.cs" Line="30" Column="26" />
+      <File FileName="app/MainApp/SoundSensor.cs" Line="6" Column="2" />
+      <File FileName="app/MainApp/AppBus.cs" Line="5" Column="1" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>
