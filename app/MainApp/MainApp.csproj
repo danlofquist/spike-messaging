@@ -37,9 +37,23 @@
   <ItemGroup>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TemperatureSensor.cs" />
-    <Compile Include="SoundSensor.cs" />
     <Compile Include="AppBus.cs" />
+    <Compile Include="Messages\NeedToTakeAction.cs" />
+    <Compile Include="Messages\SendMessageLater.cs" />
+    <Compile Include="Messages\TemperatureChanged.cs" />
+    <Compile Include="TemperatureSensor.cs" />
+    <Compile Include="Abstracts\IAlertable.cs" />
+    <Compile Include="Abstracts\IStartable.cs" />
+    <Compile Include="Abstracts\IThreshold.cs" />
+    <Compile Include="Messages\DisableSensor.cs" />
+    <Compile Include="Messages\EnableSensor.cs" />
+    <Compile Include="Handlers\AlarmClock.cs" />
+    <Compile Include="Handlers\ImportantMan.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <Folder Include="Messages\" />
+    <Folder Include="Abstracts\" />
+    <Folder Include="Handlers\" />
+  </ItemGroup>
 </Project>

@@ -41,7 +41,7 @@ namespace MainApp
 				messageType = messageType.BaseType;
 			} while (messageType != typeof(object));
 		}
-
+			
 		private void Publish(string topic, Message message)
 		{
 			List<IWrapHandler> handlers;
