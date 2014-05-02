@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
+using System.Threading;
 
 namespace MainApp
 {
@@ -22,27 +24,58 @@ namespace MainApp
 		public static void Main (string[] args)
 		{
 			var bus = new AppBus();
-			var monitor = new Monitor();
-			var importantMan = new ImportantMan(bus);
 			var alarmClock = new AlarmClock(bus);
+			var startables = new List<IStartable> ();
+
+			var importantManQueue = new QueuedHandler( new NarrowingHandler<Message, NeedToTakeAction>( new ImportantMan(bus)), "Important man");																														 
+			var monitorQueue = new QueuedHandler (
+				                   new RoundRobinWithLoadBalancing(
+										new[] {
+											CreateMonitor(bus, startables, "Monitor q #01"),
+											CreateMonitor(bus, startables, "Monitor q #02"),
+											CreateMonitor(bus, startables, "Monitor q #03")
+										}
+									), "Monitor queues"
+								);
 
 			bus.Subscribe(alarmClock);
-			bus.Subscribe(importantMan);
-			bus.Subscribe(new AlertMonitor(new NarrowingHandler<Message, TemperatureChanged>(monitor), new HighTemperatureThreshold(120), bus));
+			bus.Subscribe(new WideningHandler<Message,NeedToTakeAction>(importantManQueue));
+			bus.Subscribe(monitorQueue);
 
-
-			var startables = new List<IStartable> ();
 			startables.Add(alarmClock);
+			startables.Add(monitorQueue);
+			startables.Add(importantManQueue);
+
+			startables.ForEach(s => s.Start());
+
+			Task.Run (() => {
+				while (true)
+				{
+					Thread.Sleep(1000);
+					startables.ForEach(x => {
+						var stat = x as IProduceStatistics;
+						if ( stat != null ) {
+							Console.WriteLine(stat.GetStatistics());
+						}
+					});
+				}
+			});
 
 			for ( var ii = 0; ii < 50; ii++ ) {
-				startables.Add(new TemperatureSensor(bus, ii.ToString()));
+				new TemperatureSensor (bus, ii.ToString ()).Start();
 			}
-				
-			startables.ForEach(s => s.Start());
 
 			Console.ReadKey();
 		}
+
+		private static QueuedHandler CreateMonitor(IAppBus bus,List<IStartable> startables, string monitorName) {
+			var m = new QueuedHandler (new AlertMonitor (new NarrowingHandler<Message, TemperatureChanged> (new Monitor()), new HighTemperatureThreshold (120), bus), monitorName);
+			startables.Add(m);
+			return m;
+		}
+
 	}
+
 		
 
 	public class Monitor : IHandleMessage<TemperatureChanged>
@@ -78,3 +111,4 @@ namespace MainApp
 		}
 	}
 }
+	

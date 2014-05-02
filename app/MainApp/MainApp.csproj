@@ -49,6 +49,10 @@
     <Compile Include="Messages\EnableSensor.cs" />
     <Compile Include="Handlers\AlarmClock.cs" />
     <Compile Include="Handlers\ImportantMan.cs" />
+    <Compile Include="Handlers\QueuedHandler.cs" />
+    <Compile Include="Abstracts\IProduceStatistics.cs" />
+    <Compile Include="Handlers\Statistics.cs" />
+    <Compile Include="Handlers\RoundRobinWithLoadBalancing.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
