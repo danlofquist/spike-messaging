@@ -17,9 +17,9 @@ namespace MainApp
 		{
 			var sensor = message.MessageWithIssues as TemperatureChanged;
 			if (sensor != null) {
-				Console.WriteLine ("Stopping sensor : {0} for 5 seconds", sensor.SensorName);
+				Console.WriteLine ("Stopping sensor : {0} for 2 seconds", sensor.SensorName);
 				_bus.Publish(new DisableSensor(sensor.SensorName));
-				_bus.Publish(new SendMessageLater(DateTime.UtcNow.AddSeconds(5), new EnableSensor (sensor.SensorName)));
+				_bus.Publish(new SendMessageLater(DateTime.UtcNow.AddSeconds(2), new EnableSensor (sensor.SensorName)));
 			} else {
 				Console.WriteLine ("Sending mail to an even more important man, problem with : {0}", message.MessageWithIssues.GetType().Name);
 			}

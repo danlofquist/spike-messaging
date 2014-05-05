@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
-    <ProductVersion>10.0.0</ProductVersion>
+    <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{25D10E41-66F7-412B-AE4A-F32AB60DDAB5}</ProjectGuid>
     <OutputType>Exe</OutputType>
@@ -53,6 +53,11 @@
     <Compile Include="Abstracts\IProduceStatistics.cs" />
     <Compile Include="Handlers\Statistics.cs" />
     <Compile Include="Handlers\RoundRobinWithLoadBalancing.cs" />
+    <Compile Include="Handlers\TimeToLiveHandler.cs" />
+    <Compile Include="Abstracts\IHaveTimeToLive.cs" />
+    <Compile Include="Handlers\AlertMonitor.cs" />
+    <Compile Include="Handlers\Monitor.cs" />
+    <Compile Include="HighTemperatureThreshold.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

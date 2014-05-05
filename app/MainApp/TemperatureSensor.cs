@@ -53,13 +53,13 @@ namespace MainApp
 
 		private void MakeSensorTick() 
 		{
-			Task.Run( () => {
+			Task.Factory.StartNew( () => {
 				var r = new Random();
 				while (true) 
 				{
 					if (!_stop) {
 						_appBus.Publish(new TemperatureChanged(r.Next(0, 150),this.ToString()));
-						Thread.Sleep(50);
+						Thread.Sleep(200);
 					}
 					Thread.Sleep(1);
 				}
